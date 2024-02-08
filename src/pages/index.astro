@@ -13,12 +13,12 @@
     <meta name="robots" content="index, follow" />
     <link
       rel="preload"
-      href="/assets/fonts/JosefinSlab-VariableFont_wght.ttf"
+      href="/assets/fonts/JosefinSlab-Regular.ttf"
       as="font"
     />
     <link
       rel="preload"
-      href="/assets/fonts/OverpassMono-VariableFont_wght.ttf"
+      href="/assets/fonts/OverpassMono-Regular.ttf"
       as="font"
     />
     <title>Photography • Johnathan Verstraaten</title>
@@ -239,10 +239,9 @@
         background-color: color.$primary300;
         border-radius: 100px;
         transform: translate(-50%, -50%);
-        transition:
-          width cubic-bezier(0, 0.5, 0.5, 1) var(--transition, 0),
-          height cubic-bezier(0, 0.5, 0.5, 1) var(--transition, 0),
-          opacity cubic-bezier(0, 0.5, 0.5, 1) var(--transition, 0);
+        transition-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+        transition-property: width, height, opacity;
+        transition-duration: var(--transition, 0);
       }
 
       &::after {
@@ -282,13 +281,7 @@
 
     galleryButton.setAttribute(
       "style",
-      `
-				--transition: 0.5s;
-				--top: ${top}px;
-				--left: ${left}px;
-				--size: 75px;
-				--opacity: 0;
-			`
+      `--transition:.5s;--top:${top}px;--left:${left}px;--size:75px;--opacity:0;`
     );
 
     setTimeout(() => galleryButton.removeAttribute("style"), 500);
