@@ -26,25 +26,241 @@
     <meta property="og:type" content="website" />
   </head>
   <body>
-    <script>
-      fetch("/api/admin/folder", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-					authToken: "}7}t~15ebve=lCbf^zFmZl2d[?GJC{%|vEa@nsco$3|(T,;TUH~}3CZ;]+gi|o<}",
-					addFolderAuthToken: "[cT,[;HXJ688<gchLUjNKTl/v,R,u6*pe5eIwlRkgV9MI.dEmh9GW|.S_p#Q>]cQ",
-          slug: "test",
-          name: "Test",
-        }),
-      })
-        .then(async (res) => {
-          console.log(res);
-        })
-        .catch(async (err) => {
-          console.error(err);
-        });
-    </script>
+    <main>
+      <svg
+        width="96"
+        height="96"
+        viewBox="0 0 96 96"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M1 49.3139C1 49.3139 8.99054 45.7582 17.4278 40.278M17.4278 40.278C28.7094 32.9505 40.7897 22.1823 35.6347 11.8733C31.0431 2.69105 17.6393 3.68362 12.1347 12.3015C6.00825 21.893 10.4542 31.1281 17.4278 40.278ZM17.4278 40.278C21.5888 45.7376 26.6498 51.1668 30.9016 56.6234M30.9016 56.6234C38.2533 66.058 43.186 75.5743 36.8653 85.4698C31.4676 93.9203 19.1578 94.0587 13.3653 85.898C4.72773 73.7291 15.3591 64.7675 30.9016 56.6234ZM30.9016 56.6234C41.5344 51.0519 54.4656 45.863 65.0984 40.2915M65.0984 40.2915C80.6409 32.1474 91.2723 23.1859 82.6347 11.0169C76.8422 2.85622 64.5324 2.9946 59.1347 11.4451C52.814 21.3407 57.7467 30.8569 65.0984 40.2915ZM65.0984 40.2915C69.3502 45.7481 74.4111 51.1773 78.5722 56.6369M78.5722 56.6369C85.5458 65.7868 89.9917 75.0219 83.8653 84.6134C78.3607 93.2313 64.9569 94.2239 60.3653 85.0416C55.2103 74.7326 67.2906 63.9645 78.5722 56.6369ZM78.5722 56.6369C87.0095 51.1568 95 47.601 95 47.601"
+          stroke="#5B5B5B"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+      <h1>Johnathan Verstraaten</h1>
+      <span>Nature & Landscape Photographer</span>
+      <div class="preview">
+        <img src="/assets/images/1.jpg" alt="Weaver bird" draggable="false" />
+        <img
+          src="/assets/images/2.jpg"
+          alt="3 birds on the beach at sunset"
+          draggable="false"
+        />
+        <img src="/assets/images/3.jpg" alt="Sunset" draggable="false" />
+        <img
+          src="/assets/images/4.jpg"
+          alt="2 pelicans swimming next to each other"
+          draggable="false"
+        />
+        <img
+          src="/assets/images/5.jpg"
+          alt="A double-spurred spurfowl in a tree"
+          draggable="false"
+        />
+        <img
+          src="/assets/images/6.jpg"
+          alt="Sunset at St. Pete beach, Florida"
+          draggable="false"
+        />
+        <img src="/assets/images/7.jpg" alt="Lizard head" draggable="false" />
+        <img
+          src="/assets/images/8.jpg"
+          alt="Chicken with 2 chicks next to it"
+          draggable="false"
+        />
+      </div>
+      <a href="/gallery">
+        <button id="gallery">GALLERY</button>
+      </a>
+    </main>
   </body>
 </html>
+
+<style lang="scss">
+  @use "../styles/base";
+</style>
+
+<style lang="scss">
+  @use "../styles/font";
+  @use "../styles/color";
+
+  main {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-top: 6px solid color.$primary500;
+    overflow: hidden;
+  }
+
+  svg {
+    width: 80px;
+    height: 80px;
+  }
+
+  h1 {
+    font-size: 48px;
+    font-weight: normal;
+    font-family: font.$sans;
+    letter-spacing: 2.5px;
+    margin: 50px 0 30px;
+    text-align: center;
+  }
+
+  span {
+    font-size: 20px;
+    letter-spacing: 2.5px;
+    font-family: font.$mono;
+    color: color.$neutral500;
+    text-align: center;
+  }
+
+  .preview {
+    margin: 130px auto 40px;
+    display: flex;
+    width: 80vw;
+    padding: 30px 0;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+
+    img {
+      height: 230px;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      object-position: center;
+      flex-shrink: 0;
+      border-radius: 10px;
+      margin: 0 25px;
+      box-shadow: 0 4px 20px 2px hsla(0, 0%, 0%, 25%);
+      transform-origin: center;
+    }
+
+    img:nth-child(odd) {
+      transform: rotate(-3deg);
+    }
+
+    img:nth-child(even) {
+      transform: rotate(3deg);
+    }
+
+    &::before {
+      content: "";
+      width: 100px;
+      height: 100%;
+      background-color: red;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 2;
+      background: linear-gradient(to right, white, transparent);
+    }
+
+    &::after {
+      content: "";
+      width: 100px;
+      height: 100%;
+      background-color: red;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+      background: linear-gradient(to right, transparent, white);
+    }
+  }
+
+  a {
+    display: contents;
+
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 150px;
+      height: 50px;
+      font-size: 16px;
+      letter-spacing: 5px;
+      color: color.$neutral950;
+      font-weight: 500;
+      font-family: font.$sans;
+      position: relative;
+      transition: 0.25s;
+      outline: none;
+      overflow: hidden;
+
+      &::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: var(--top, 0);
+        left: var(--left, 0);
+        width: var(--size, 0);
+        height: var(--size, 0);
+        opacity: var(--opacity, 1);
+        background-color: color.$primary300;
+        border-radius: 100px;
+        transform: translate(-50%, -50%);
+        transition:
+          width cubic-bezier(0, 0.5, 0.5, 1) var(--transition, 0),
+          height cubic-bezier(0, 0.5, 0.5, 1) var(--transition, 0),
+          opacity cubic-bezier(0, 0.5, 0.5, 1) var(--transition, 0);
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 1px;
+        background-color: color.$neutral500;
+        transition: 0.25s;
+        z-index: -2;
+      }
+
+      &:hover,
+      &:focus {
+        color: color.$neutral50;
+
+        &::after {
+          height: 100%;
+          background-color: color.$primary600;
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  const galleryButton: HTMLElement = document.querySelector(
+    "#gallery"
+  ) as HTMLElement;
+
+  galleryButton.addEventListener("mousedown", (e) => {
+    const top: number = e.clientY - galleryButton.getBoundingClientRect().top;
+    const left: number = e.clientX - galleryButton.getBoundingClientRect().left;
+
+    galleryButton.setAttribute(
+      "style",
+      `
+				--transition: 0.5s;
+				--top: ${top}px;
+				--left: ${left}px;
+				--size: 75px;
+				--opacity: 0;
+			`
+    );
+
+    setTimeout(() => galleryButton.removeAttribute("style"), 500);
+  });
+</script>
