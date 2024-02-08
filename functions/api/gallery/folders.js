@@ -1,7 +1,6 @@
 export async function onRequestGet(context) {
-  const GALLERY = context.env.JVPHOTOGRAPHY_DB;
-  const folders = GALLERY.prepare("SELECT * FROM folders");
-  const data = await folders;
+  const folders = context.env.JVPHOTOGRAPHY_DB.prepare("SELECT * FROM folders");
+  const data = await folders.first();
 
   return Response.json(data);
 }
