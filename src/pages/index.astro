@@ -1,5 +1,20 @@
 ---
-
+fetch("/api/admin/folder", {
+  method: "POST",
+  headers: {
+		"Content-Type": "application/json"
+	},
+  body: JSON.stringify({
+		slug: "test",
+		name: "Test"
+	}),
+})
+  .then(async (res) => {
+    console.log(res);
+  })
+  .catch(async (err) => {
+    console.error(err);
+  });
 ---
 
 <html lang="en">
