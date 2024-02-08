@@ -1,0 +1,44 @@
+@use "./font";
+@use "./color.scss";
+@use "./cursor.scss";
+
+@font-face {
+  font-family: "Josefin Slab";
+  src: url("/assets/fonts/JosefinSlab-VariableFont_wght.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Overpass Mono";
+  src: url("/assets/fonts/OverpassMono-VariableFont_wght.ttf")
+    format("truetype");
+}
+
+html {
+  font-weight: normal;
+  font-family: font.$sans;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-weight: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  box-sizing: border-box;
+  background: transparent;
+  text-decoration: none;
+  border: 0;
+  cursor: cursor.$default;
+}
+
+*::selection {
+  background-color: color.$primary200;
+}
+
+a,
+button {
+  cursor: cursor.$pointer;
+}
