@@ -4,7 +4,7 @@ export async function onRequestGet(context) {
       ${crypto.randomUUID()},
       'test',
       'Test'
-    )`);
+    )`).run();
     return new Response("Success", { status: 200 });
   } catch (error) {
     return new Response(error, { status: 500 });
