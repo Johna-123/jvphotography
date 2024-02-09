@@ -1,5 +1,13 @@
 ---
+const folders = await fetch("/functions/api/folders")
+  .then((res) => res.json())
+  .catch((error) => console.log(error));
 
+interface Folder {
+  id: string;
+  slug: string;
+  name: string;
+};
 ---
 
 <nav>
@@ -23,22 +31,12 @@
       <input type="radio" name="folder" id="all" value="All Photos" checked />
       <label for="all">All Photos</label>
     </li>
-    <li>
-      <input type="radio" name="folder" id="chickens" value="Chickens" />
-      <label for="chickens">Chickens</label>
-    </li>
-    <li>
-      <input type="radio" name="folder" id="birds" value="Birds" />
-      <label for="birds">Birds</label>
-    </li>
-    <li>
-      <input type="radio" name="folder" id="lizards" value="Lizards" />
-      <label for="lizards">Lizards</label>
-    </li>
-    <li>
-      <input type="radio" name="folder" id="sunsets" value="Sunsets" />
-      <label for="sunsets">Sunsets</label>
-    </li>
+    {folders.map((folder: Folder) => (
+      <li>
+        <input type="radio" name="folder" id={ folder.slug } value={ folder.name } />
+        <label for={ folder.slug }>{ folder.name }</label>
+      </li>
+    ))}
   </ul>
 </nav>
 
@@ -55,6 +53,7 @@
     padding: 0 30px;
     background-color: color.$neutral100;
     border-right: 1px solid color.$neutral400;
+    z-index: 10;
 
     svg {
       width: 64px;
