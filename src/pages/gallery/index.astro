@@ -9,8 +9,15 @@ const { results: images } = await fetch(
 
 interface Image {
   id: string;
-  slug: string;
   name: string;
+  slug: string;
+  description: string;
+  tags: string;
+  date: string;
+  location: string;
+  thumbnail: string;
+  image: string;
+  folder: string;
 }
 ---
 
@@ -80,12 +87,19 @@ interface Image {
         </div>
       </header>
       <div class="content">
-        <a href="#" class="image">
-          <div class="outer">
-            <img src="/assets/images/1.jpg" alt="Weaver Bird" />
-          </div>
-          <span>Weaver Bird</span>
-        </a>
+        {
+          images.map((image: Image) => (
+            <a href={`/gallery/${image.slug}`} class="image">
+              <div class="outer">
+                <img
+                  src={`/assets/image/collection/thumbnails/${image.id}.jpg`}
+                  alt={image.name}
+                />
+              </div>
+              <span>{image.name}</span>
+            </a>
+          ))
+        }
       </div>
     </main>
   </body>
