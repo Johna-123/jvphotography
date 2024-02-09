@@ -1,5 +1,17 @@
 ---
 import Folders from "../../coponents/Folders.astro";
+
+const { results: images } = await fetch(
+  "https://jvphotography.pages.dev/api/gallery/images"
+)
+  .then((res) => res.json())
+  .catch((error) => console.log(error));
+
+interface Image {
+  id: string;
+  slug: string;
+  name: string;
+}
 ---
 
 <html lang="en">
@@ -73,63 +85,6 @@ import Folders from "../../coponents/Folders.astro";
             <img src="/assets/images/1.jpg" alt="Weaver Bird" />
           </div>
           <span>Weaver Bird</span>
-        </a>
-        <a href="#" class="image">
-          <div class="outer">
-            <img
-              src="/assets/images/2.jpg"
-              alt="3 birds on the beach at sunset"
-            />
-          </div>
-          <span>Birds on the beach</span>
-        </a>
-        <a href="#" class="image">
-          <div class="outer">
-            <img src="/assets/images/3.jpg" alt="Sunset" />
-          </div>
-          <span>Sunset</span>
-        </a>
-        <a href="#" class="image">
-          <div class="outer">
-            <img
-              src="/assets/images/4.jpg"
-              alt="2 pelicans swimming next to each other"
-            />
-          </div>
-          <span>Pelicans</span>
-        </a>
-        <a href="#" class="image">
-          <div class="outer">
-            <img
-              src="/assets/images/5.jpg"
-              alt="A double-spurred spurfowl in a tree"
-            />
-          </div>
-          <span>Spurfowl</span>
-        </a>
-        <a href="#" class="image">
-          <div class="outer">
-            <img
-              src="/assets/images/6.jpg"
-              alt="Sunset at St. Pete beach, Florida"
-            />
-          </div>
-          <span>Sunset at the beach</span>
-        </a>
-        <a href="#" class="image">
-          <div class="outer">
-            <img src="/assets/images/7.jpg" alt="Lizard head" />
-          </div>
-          <span>Lizard</span>
-        </a>
-        <a href="#" class="image">
-          <div class="outer">
-            <img
-              src="/assets/images/8.jpg"
-              alt="Chicken with 2 chicks next to it"
-            />
-          </div>
-          <span>Chicken</span>
         </a>
       </div>
     </main>

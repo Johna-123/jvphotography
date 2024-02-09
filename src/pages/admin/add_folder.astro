@@ -9,20 +9,20 @@
   <title>Document</title>
 </head>
 <body>
-  <form>
-    <input type="text" id="name" name="name" placeholder="Folder name" />
-    <input type="text" id="slug" name="slug" placeholder="Folder slug" />
-    <button id="submit">Add Folder</button>
-  </form>
+  <input type="text" id="name" name="name" placeholder="Folder name" />
+  <input type="text" id="slug" name="slug" placeholder="Folder slug" />
+  <button id="submit">Add Folder</button>
 </body>
 </html>
 
 <script>
   const submit = document.querySelector("#submit") as HTMLElement;
 
-  submit.addEventListener("click", () => {
+  submit.addEventListener("click", (e) => {
     const name = document.querySelector("#name") as HTMLInputElement;
     const slug = document.querySelector("#slug") as HTMLInputElement;
+
+    e.preventDefault();
 
     fetch("/api/admin/folder", {
       method: "POST",
