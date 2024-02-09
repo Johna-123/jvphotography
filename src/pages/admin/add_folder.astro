@@ -10,8 +10,8 @@
     <title>Document</title>
   </head>
   <body>
-    <input type="text" id="password" name="password" placeholder="Password" />
-    <input type="text" id="key" name="key" placeholder="Key" />
+    <input type="password" id="password" name="password" placeholder="Password" />
+    <input type="password" id="key" name="key" placeholder="Key" />
     <input type="text" id="name" name="name" placeholder="Folder name" />
     <input type="text" id="slug" name="slug" placeholder="Folder slug" />
     <button id="submit">Add Folder</button>
@@ -44,16 +44,18 @@
       .then((res) => {
         console.log(res);
 
-        fetch(
-          "https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/b9609420-57ad-4b5d-8ffb-abff3adf18f5",
-          {
-            method: "POST",
-          }
-        ).then((res) => {
-          console.log(res);
-        }).catch((err) => {
-          console.log(err);
-        });
+        if (res.status === 200) {
+          fetch(
+            "https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/b9609420-57ad-4b5d-8ffb-abff3adf18f5",
+            {
+              method: "POST",
+            }
+          ).then((res) => {
+            console.log(res);
+          }).catch((err) => {
+            console.log(err);
+          });
+        }
       })
       .catch((err) => {
         console.log(err);
