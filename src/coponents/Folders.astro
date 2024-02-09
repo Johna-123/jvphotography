@@ -1,5 +1,5 @@
 ---
-const folders = await fetch("/functions/api/folders")
+const { results: folders } = await fetch("/functions/api/gallery/folders")
   .then((res) => res.json())
   .catch((error) => console.log(error));
 
@@ -7,7 +7,7 @@ interface Folder {
   id: string;
   slug: string;
   name: string;
-};
+}
 ---
 
 <nav>
@@ -31,12 +31,19 @@ interface Folder {
       <input type="radio" name="folder" id="all" value="All Photos" checked />
       <label for="all">All Photos</label>
     </li>
-    {folders.map((folder: Folder) => (
-      <li>
-        <input type="radio" name="folder" id={ folder.slug } value={ folder.name } />
-        <label for={ folder.slug }>{ folder.name }</label>
-      </li>
-    ))}
+    {
+      folders.map((folder: Folder) => (
+        <li>
+          <input
+            type="radio"
+            name="folder"
+            id={folder.slug}
+            value={folder.name}
+          />
+          <label for={folder.slug}>{folder.name}</label>
+        </li>
+      ))
+    }
   </ul>
 </nav>
 
@@ -126,10 +133,12 @@ interface Folder {
 </style>
 
 <script>
-  const folders = document.querySelectorAll("input[name=folder]") as NodeListOf<HTMLInputElement>;
+  const folders = document.querySelectorAll(
+    "input[name=folder]"
+  ) as NodeListOf<HTMLInputElement>;
   const title = document.querySelector("#title") as HTMLElement;
 
-  folders.forEach(folder => {
+  folders.forEach((folder) => {
     folder.addEventListener("click", () => {
       title.innerHTML = folder.value;
     });
