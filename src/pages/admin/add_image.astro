@@ -78,22 +78,24 @@ interface Folder {
     if (image.files && image.files[0]) {
       const reader = new FileReader();
       reader.addEventListener("load", e => {
-        const binaryString = atob((e.target?.result as string).replace("data:image/jpeg;base64,", ""));
+        /*const binaryString = atob((e.target?.result as string).replace("data:image/jpeg;base64,", ""));
         const byteArray = new Uint8Array(binaryString.length);
         for (let i = 0; i < binaryString.length; i++) {
           byteArray[i] = binaryString.charCodeAt(i);
         }
-        const imageBlob = new Blob([byteArray], { type: 'image/jpeg' });
+        const imageBlob = new Blob([byteArray], { type: 'image/jpeg' });*/
+        const imageBlob = (e.target?.result as string).replace("data:image/jpeg;base64,", "");
         
         if (thumbnail.files && thumbnail.files[0]) {
           const reader = new FileReader();
           reader.addEventListener("load", e => {
-            const binaryString = atob((e.target?.result as string).replace("data:image/jpeg;base64,", ""));
+            /*const binaryString = atob((e.target?.result as string).replace("data:image/jpeg;base64,", ""));
             const byteArray = new Uint8Array(binaryString.length);
             for (let i = 0; i < binaryString.length; i++) {
               byteArray[i] = binaryString.charCodeAt(i);
             }
-            const thumbnailBlob = new Blob([byteArray], { type: 'image/jpeg' });
+            const thumbnailBlob = new Blob([byteArray], { type: 'image/jpeg' });*/
+            const thumbnailBlob = (e.target?.result as string).replace("data:image/jpeg;base64,", "");
 
             fetch("/api/admin/image", {
               method: "POST",
@@ -102,7 +104,7 @@ interface Folder {
                 addImageAuthToken: key.value,
                 name: name.value,
                 slug: slug.value,
-                description: description.innerHTML,
+                description: description.innerText,
                 tags: tags.value,
                 date: date.value,
                 location: location.value,
