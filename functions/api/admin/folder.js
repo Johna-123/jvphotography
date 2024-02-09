@@ -7,9 +7,9 @@ export async function onRequestPost(context) {
   ) {
     try {
       const response = await context.env.JVPHOTOGRAPHY_DB.prepare(`INSERT INTO folders VALUES (
-        ${crypto.randomUUID()},
-        ${data.slug},
-        ${data.name}
+        '${crypto.randomUUID()}',
+        '${data.slug}',
+        '${data.name}'
       )`).run();
       return new Response(response, { status: 200 });
     } catch (error) {
