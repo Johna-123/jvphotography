@@ -54,7 +54,7 @@ interface Folder {
       }
     </select>
     <button id="submit">Add Image</button>
-    <img id="preview" src="" alt="prreview" width="256" height="256">
+    <img id="preview" src="" alt="prreview" width="256" height="256" />
   </body>
 </html>
 
@@ -66,7 +66,9 @@ interface Folder {
     const key = document.querySelector("#key") as HTMLInputElement;
     const name = document.querySelector("#name") as HTMLInputElement;
     const slug = document.querySelector("#slug") as HTMLInputElement;
-    const description = document.querySelector("#description") as HTMLTextAreaElement;
+    const description = document.querySelector(
+      "#description"
+    ) as HTMLTextAreaElement;
     const tags = document.querySelector("#tags") as HTMLInputElement;
     const date = document.querySelector("#date") as HTMLInputElement;
     const location = document.querySelector("#location") as HTMLInputElement;
@@ -74,40 +76,21 @@ interface Folder {
     const image = document.querySelector("#image") as HTMLInputElement;
     const folder = document.querySelector("#folder") as HTMLInputElement;
 
-
     if (image.files && image.files[0]) {
       const reader = new FileReader();
-      reader.addEventListener("load", e => {
-        /*const binaryString = atob((e.target?.result as string).replace("data:image/jpeg;base64,", ""));
-        const byteArray = new Uint8Array(binaryString.length);
-        for (let i = 0; i < binaryString.length; i++) {
-          byteArray[i] = binaryString.charCodeAt(i);
-        }
-        const imageBlob = new Blob([byteArray], { type: 'image/jpeg' });*/
-        const image64 = (e.target?.result as string).replace("data:image/jpeg;base64,", "");
-        
+      reader.addEventListener("load", (e) => {
+        const image64 = (e.target?.result as string).replace(
+          "data:image/jpeg;base64,",
+          ""
+        );
+
         if (thumbnail.files && thumbnail.files[0]) {
           const reader = new FileReader();
-          reader.addEventListener("load", e => {
-            /*const binaryString = atob((e.target?.result as string).replace("data:image/jpeg;base64,", ""));
-            const byteArray = new Uint8Array(binaryString.length);
-            for (let i = 0; i < binaryString.length; i++) {
-              byteArray[i] = binaryString.charCodeAt(i);
-            }
-            const thumbnailBlob = new Blob([byteArray], { type: 'image/jpeg' });*/
-            const thumbnail64 = (e.target?.result as string).replace("data:image/jpeg;base64,", "");
-
-            console.log(password.value);
-            console.log(key.value);
-            console.log(name.value);
-            console.log(slug.value);
-            console.log(description.value);
-            console.log(tags.value);
-            console.log(date.value);
-            console.log(location.value);
-            console.log(thumbnail64);
-            console.log(image64);
-            console.log(folder.value);
+          reader.addEventListener("load", (e) => {
+            const thumbnail64 = (e.target?.result as string).replace(
+              "data:image/jpeg;base64,",
+              ""
+            );
 
             fetch("/api/admin/image", {
               method: "POST",
@@ -130,21 +113,6 @@ interface Folder {
             })
               .then((res) => {
                 console.log(res);
-
-                if (res.status === 200) {
-                  fetch(
-                    "https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/b9609420-57ad-4b5d-8ffb-abff3adf18f5",
-                    {
-                      method: "POST",
-                    }
-                  )
-                    .then((res) => {
-                      console.log(res);
-                    })
-                    .catch((err) => {
-                      console.log(err);
-                    });
-                }
               })
               .catch((err) => {
                 console.log(err);
