@@ -1,4 +1,4 @@
-import { Octokit } from "https://esm.sh/@octokit/core";
+import { Octokit } from "@octokit/core";
 
 export async function onRequestPost(context) {
   const data = await context.request.json();
