@@ -95,7 +95,7 @@ interface Folder {
             }
             const thumbnailBlob = new Blob([byteArray], { type: 'image/jpeg' });
 
-            fetch("/api/admin/folder", {
+            fetch("/api/admin/image", {
               method: "POST",
               body: JSON.stringify({
                 authToken: password.value,
