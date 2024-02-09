@@ -1,0 +1,145 @@
+---
+const { results: folders } = await fetch(
+  "https://jvphotography.pages.dev/api/gallery/folders"
+)
+  .then((res) => res.json())
+  .catch((error) => console.log(error));
+
+interface Folder {
+  id: string;
+  slug: string;
+  name: string;
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Add Image</title>
+  </head>
+  <body>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      placeholder="Password"
+    />
+    <input type="password" id="key" name="key" placeholder="Key" />
+    <input type="text" id="name" name="name" placeholder="Image name" />
+    <input type="text" id="slug" name="slug" placeholder="Image slug" />
+    <textarea
+      name="description"
+      id="description"
+      cols="30"
+      rows="10"
+      placeholder="Description"></textarea>
+    <input type="text" name="tags" id="tags" placeholder="Tags" />
+    <input type="date" name="date" id="date" />
+    <input type="text" name="location" id="location" placeholder="Location" />
+    <input
+      type="file"
+      id="thumbnail"
+      name="thumbnail"
+      placeholder="Thumbnail"
+    />
+    <input type="file" id="image" name="image" placeholder="Image" />
+    <select name="folder" id="folder">
+      {
+        folders.map((folder: Folder) => (
+          <option value={folder.id}>{folder.name}</option>
+        ))
+      }
+    </select>
+    <button id="submit">Add Image</button>
+    <img id="preview" src="" alt="prreview" width="256" height="256">
+  </body>
+</html>
+
+<script>
+  const submit = document.querySelector("#submit") as HTMLElement;
+
+  submit.addEventListener("click", (e) => {
+    const password = document.querySelector("#password") as HTMLInputElement;
+    const key = document.querySelector("#key") as HTMLInputElement;
+    const name = document.querySelector("#name") as HTMLInputElement;
+    const slug = document.querySelector("#slug") as HTMLInputElement;
+    const description = document.querySelector("#description") as HTMLElement;
+    const tags = document.querySelector("#tags") as HTMLInputElement;
+    const date = document.querySelector("#date") as HTMLInputElement;
+    const location = document.querySelector("#location") as HTMLInputElement;
+    const thumbnail = document.querySelector("#thumbnail") as HTMLInputElement;
+    const image = document.querySelector("#image") as HTMLInputElement;
+    const folder = document.querySelector("#folder") as HTMLInputElement;
+
+
+    if (image.files && image.files[0]) {
+      const reader = new FileReader();
+      reader.addEventListener("load", e => {
+        const binaryString = atob((e.target?.result as string).replace("data:image/jpeg;base64,", ""));
+        const byteArray = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+          byteArray[i] = binaryString.charCodeAt(i);
+        }
+        const imageBlob = new Blob([byteArray], { type: 'image/jpeg' });
+        
+        if (thumbnail.files && thumbnail.files[0]) {
+          const reader = new FileReader();
+          reader.addEventListener("load", e => {
+            const binaryString = atob((e.target?.result as string).replace("data:image/jpeg;base64,", ""));
+            const byteArray = new Uint8Array(binaryString.length);
+            for (let i = 0; i < binaryString.length; i++) {
+              byteArray[i] = binaryString.charCodeAt(i);
+            }
+            const thumbnailBlob = new Blob([byteArray], { type: 'image/jpeg' });
+
+            fetch("/api/admin/folder", {
+              method: "POST",
+              body: JSON.stringify({
+                authToken: password.value,
+                addImageAuthToken: key.value,
+                name: name.value,
+                slug: slug.value,
+                description: description.innerHTML,
+                tags: tags.value,
+                date: date.value,
+                location: location.value,
+                thumbnail: thumbnailBlob,
+                image: imageBlob,
+                folder: folder.value,
+              }),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+              .then((res) => {
+                console.log(res);
+
+                if (res.status === 200) {
+                  fetch(
+                    "https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/b9609420-57ad-4b5d-8ffb-abff3adf18f5",
+                    {
+                      method: "POST",
+                    }
+                  )
+                    .then((res) => {
+                      console.log(res);
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                    });
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          });
+          reader.readAsDataURL(thumbnail.files[0]);
+        }
+      });
+      reader.readAsDataURL(image.files[0]);
+    }
+  });
+</script>
