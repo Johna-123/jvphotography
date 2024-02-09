@@ -9,10 +9,36 @@
   <title>Document</title>
 </head>
 <body>
-  <form action="/api/admin/folder" method="post">
+  <form>
     <input type="text" id="name" name="name" placeholder="Folder name" />
     <input type="text" id="slug" name="slug" placeholder="Folder slug" />
-    <input type="submit" value="Add folder" />
+    <button id="submit">Add Folder</button>
   </form>
 </body>
 </html>
+
+<script>
+  const submit = document.querySelector("#submit") as HTMLElement;
+
+  submit.addEventListener("click", () => {
+    const name = document.querySelector("#name") as HTMLInputElement;
+    const slug = document.querySelector("#slug") as HTMLInputElement;
+
+    fetch("/api/admin/folder", {
+      method: "POST",
+      body: JSON.stringify({
+        authToken: "}7}t~15ebve=lCbf^zFmZl2d[?GJC{%|vEa@nsco$3|(T,;TUH~}3CZ;]+gi|o<}",
+        addFolderAuthToken: "[cT,[;HXJ688<gchLUjNKTl/v,R,u6*pe5eIwlRkgV9MI.dEmh9GW|.S_p#Q>]cQ",
+        name: name.value,
+        slug: slug.value,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      console.log(res);
+    }).catch((err) => {
+      console.log(err);
+    });
+  });
+</script>
