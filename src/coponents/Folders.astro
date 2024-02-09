@@ -41,6 +41,7 @@ interface Folder {
             name="folder"
             id={folder.slug}
             value={folder.name}
+            data-folder={folder.id}
           />
           <label for={folder.slug}>{folder.name}</label>
         </li>
@@ -139,10 +140,22 @@ interface Folder {
     "input[name=folder]"
   ) as NodeListOf<HTMLInputElement>;
   const title = document.querySelector("#title") as HTMLElement;
+  const images = document.querySelectorAll(".image") as NodeListOf<HTMLElement>;
 
   folders.forEach((folder) => {
     folder.addEventListener("click", () => {
       title.innerHTML = folder.value;
+
+      images.forEach((image) => {
+        image.style.display = "none";
+
+        if (
+          image.getAttribute("data-folder") ===
+          folder.getAttribute("data-folder")
+        ) {
+          image.style.display = "block";
+        }
+      });
     });
   });
 </script>

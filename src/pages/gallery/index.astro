@@ -89,7 +89,11 @@ interface Image {
       <div class="content">
         {
           images.map((image: Image) => (
-            <a href={`/gallery/${image.slug}`} class="image">
+            <a
+              href={`/gallery/${image.slug}`}
+              class="image"
+              data-folder={image.folder}
+            >
               <div class="outer">
                 <img
                   src={`/assets/images/collection/thumbnails/${image.id}.jpg`}
