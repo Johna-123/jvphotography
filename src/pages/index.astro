@@ -110,7 +110,7 @@
   </body>
 </html>
 
-<style lang="scss">
+<style lang="scss" is:global>
   @use "../styles/base";
 </style>
 
@@ -137,7 +137,7 @@
   h1 {
     font-size: 48px;
     font-weight: normal;
-    font-family: font.$sans;
+    font-family: font.$serif;
     letter-spacing: 2.5px;
     margin: 50px 0 30px;
     text-align: center;
@@ -221,7 +221,7 @@
       letter-spacing: 5px;
       color: color.$neutral950;
       font-weight: 500;
-      font-family: font.$sans;
+      font-family: font.$serif;
       position: relative;
       transition: 0.25s;
       outline: none;
@@ -281,7 +281,7 @@
 
     galleryButton.setAttribute(
       "style",
-      `--transition:.5s;--top:${top}px;--left:${left}px;--size:75px;--opacity:0;`
+      `--transition:.5s;--top:${top}px;--left:${left}px;--size:75px;--opacity:0`
     );
 
     setTimeout(() => galleryButton.removeAttribute("style"), 500);

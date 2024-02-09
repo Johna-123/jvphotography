@@ -1,0 +1,146 @@
+---
+import Folders from "../../coponents/Folders.astro";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="robots" content="index, follow" />
+    <title>Gallery • Johnathan Verstraaten</title>
+    <meta name="author" content="Johnathan Verstraaten" />
+    <meta name="description" content="A collection of my photography" />
+    <meta property="og:title" content="Gallery • Johnathan Verstraaten" />
+    <meta property="og:url" content="https://jvphotography.pages.dev/gallery" />
+    <meta
+      property="og:image"
+      content="https://jvphotography.pages.dev/preview.png"
+    />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <Folders />
+    <main>
+      <header>
+        <h1 id="title">All Photos</h1>
+        <div class="search">
+          <button id="search-button">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M20 20L14.9255 14.9255M14.9255 14.9255C16.0837 13.7673 16.8 12.1673 16.8 10.4C16.8 6.86538 13.9346 4 10.4 4C6.86538 4 4 6.86538 4 10.4C4 13.9346 6.86538 16.8 10.4 16.8C12.1673 16.8 13.7673 16.0837 14.9255 14.9255Z"
+                stroke="#5B5B5B"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+          </button>
+          <input type="search" id="search" placeholder="Search..." tabindex="-1" />
+        </div>
+      </header>
+    </main>
+  </body>
+</html>
+
+<style is:global lang="scss">
+  @use "../../styles/base";
+  @use "../../styles/scrollbar";
+</style>
+
+<style lang="scss">
+  @use "../../styles/font";
+  @use "../../styles/color";
+
+  body {
+    padding: 6px 0 0 300px;
+
+    &::before {
+      content: "";
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background-color: color.$primary500;
+      z-index: 10;
+    }
+
+    main {
+      width: 100%;
+      height: auto;
+      padding: 140px 30px 100px;
+
+      header {
+        height: 100px;
+        padding-top: 50px;
+        position: fixed;
+        top: 6px;
+        left: 330px;
+        right: 30px;
+        background-color: white;
+        border-bottom: 1px solid color.$neutral400;
+        box-shadow: 0 4px 10px 3px white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h1 {
+          width: fit-content;
+          font-size: 24px;
+          font-family: font.$serif;
+        }
+
+        div {
+          line-height: 0;
+          display: flex;
+          align-items: center;
+
+          #search {
+            width: 0;
+            height: 32px;
+            border-bottom: 1px solid color.$neutral400;
+            margin-left: 0;
+            cursor: text;
+            transition-property: width, margin-left;
+            transition-duration: 0.25s;
+            font-size: 14px;
+            color: color.$neutral700;
+
+            &:focus {
+              outline: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  const searchButton = document.querySelector("#search-button") as HTMLElement;
+  const searchBox = document.querySelector("#search") as HTMLElement;
+
+  searchButton.addEventListener("click", () => {
+    searchBox.focus();
+    searchBox.style.width = "200px";
+    searchBox.style.marginLeft = "10px";
+    searchBox.setAttribute("tabindex", "0");
+  });
+
+  searchBox.addEventListener("blur", () => {
+    if ((searchBox as HTMLInputElement).value === "") {
+      searchBox.style.width = "0";
+      searchBox.style.marginLeft = "0";
+      searchBox.setAttribute("tabindex", "-1");
+    }
+  });
+</script>

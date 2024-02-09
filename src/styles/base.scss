@@ -8,6 +8,11 @@
 }
 
 @font-face {
+  font-family: "Inter";
+  src: url("/assets/fonts/Inter-Regular.ttf") format("truetype");
+}
+
+@font-face {
   font-family: "Overpass Mono";
   src: url("/assets/fonts/OverpassMono-Regular.ttf") format("truetype");
 }
@@ -17,6 +22,7 @@ html {
   font-family: font.$sans;
   font-size: 16px;
   line-height: 1.5;
+  cursor: cursor.$default;
 }
 
 * {
@@ -30,7 +36,7 @@ html {
   background: transparent;
   text-decoration: none;
   border: 0;
-  cursor: cursor.$default;
+  cursor: inherit;
 }
 
 *::selection {
@@ -40,4 +46,8 @@ html {
 a,
 button {
   cursor: cursor.$pointer;
+}
+
+button {
+  line-height: 0;
 }
