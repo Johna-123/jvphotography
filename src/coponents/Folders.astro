@@ -30,7 +30,14 @@ interface Folder {
   </a>
   <ul>
     <li>
-      <input type="radio" name="folder" id="all" value="All Photos" checked />
+      <input
+        type="radio"
+        name="folder"
+        id="all"
+        value="All Photos"
+        data-folder="all"
+        checked
+      />
       <label for="all">All Photos</label>
     </li>
     {
@@ -153,6 +160,8 @@ interface Folder {
           image.getAttribute("data-folder") ===
           folder.getAttribute("data-folder")
         ) {
+          image.style.display = "block";
+        } else if (folder.getAttribute("data-folder") === "all") {
           image.style.display = "block";
         }
       });
