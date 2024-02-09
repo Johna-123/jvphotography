@@ -1,5 +1,7 @@
 ---
-const { results: folders } = await fetch("/functions/api/gallery/folders")
+const { results: folders } = await fetch(
+  "https://jvphotography.pages.dev/functions/api/gallery/folders"
+)
   .then((res) => res.json())
   .catch((error) => console.log(error));
 
