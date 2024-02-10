@@ -43,7 +43,7 @@ const image: Image = await fetch("https://jvphotography.pages.dev/api/gallery/im
     "Content-Type": "application/json",
   },
   body: JSON.stringify({
-    id: id,
+    image: id,
   }),
 })
   .then((res) => res.json())
