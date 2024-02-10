@@ -1,0 +1,44 @@
+---
+export async function getStaticPaths() {
+  const { results: images } = await fetch(
+    "https://jvphotography.pages.dev/api/gallery/images"
+  )
+    .then((res) => res.json())
+    .catch((error) => console.log(error));
+
+  interface Image {
+    id: string;
+    slug: string;
+    name: string;
+    tags: string;
+    folder: string;
+  }
+
+  return images.map((image: Image) => {
+    return {params: {slug: image.slug}};
+  });
+}
+
+const { slug } = Astro.params;
+
+const image =  await fetch(
+  "https://jvphotography.pages.dev/api/gallery/image"
+)
+  .then((res) => res.json())
+  .catch((error) => console.log(error));
+
+interface Image {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  tags: string;
+  date: string;
+  location: string;
+  thumbnail: string;
+  image: string;
+  folder: string;
+}
+
+console.log(image as Image);
+---
