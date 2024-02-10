@@ -37,18 +37,13 @@ interface Image {
   folder: string;
 }
 
-const image: Image = await fetch("https://jvphotography.pages.dev/api/gallery/image", {
-  method: "GET",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    image: id,
-  }),
-})
+const image: Image = await fetch(
+  `https://jvphotography.pages.dev/api/gallery/image/${id}`
+)
   .then((res) => res.json())
   .catch((error) => console.log(error));
 ---
+
 <span>{image.id}</span>
 <br />
 <span>{image.slug}</span>
