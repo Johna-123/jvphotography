@@ -1,6 +1,4 @@
 ---
-import Image from "../../components/Image.astro";
-
 export async function getStaticPaths() {
   const { results: images } = await fetch(
     "https://jvphotography.pages.dev/api/gallery/images"
@@ -44,6 +42,16 @@ const image: Image = await fetch(
 )
   .then((res) => res.json())
   .catch((error) => console.log(error));
+
+function date() {
+  const dateString = new Date(image.date);
+  const date = dateString.getDate();
+  const day =
+    date + (date === 1 ? "st" : date === 2 ? "nd" : date === 3 ? "rd" : "th");
+  const month = dateString.toLocaleString("default", { month: "long" });
+  const year = dateString.getFullYear();
+  return `${day} ${month} ${year}`;
+}
 ---
 
 <html lang="en">
@@ -86,6 +94,150 @@ const image: Image = await fetch(
     <meta property="og:type" content="article" />
   </head>
   <body>
-    <Image imageId={image} />
+    <header>
+      <a href="/">HOME</a>
+      <a href="/gallery">GALLERY</a>
+    </header>
+    <article>
+      <img
+        src={`/assets/images/collection/${image.id}.jpg`}
+        alt={image.name}
+        draggable="false"
+      />
+      <div class="details">
+        <h1>{image.name}</h1>
+        <div>
+          <span>
+            <svg
+              width="14"
+              height="17"
+              viewBox="0 0 14 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M6.8 17C6.8 17 13.6 10.5555 13.6 6.8C13.6 3.04446 10.5555 0 6.8 0C3.04446 0 0 3.04446 0 6.8C0 10.5555 6.8 17 6.8 17ZM8.5 6.8C8.5 5.86112 7.73889 5.1 6.8 5.1C5.86112 5.1 5.1 5.86112 5.1 6.8C5.1 7.73888 5.86112 8.5 6.8 8.5C7.73889 8.5 8.5 7.73888 8.5 6.8Z"
+                fill="#737373"></path>
+            </svg>
+            {image.location}
+          </span>
+          <span>•</span>
+          <span>{date()}</span>
+        </div>
+      </div>
+      <p>{image.description}</p>
+    </article>
   </body>
 </html>
+
+<style is:global lang="scss">
+  @use "../../styles/base";
+  @use "../../styles/scrollbar";
+</style>
+
+<style lang="scss">
+  @use "../../styles/font";
+  @use "../../styles/color";
+
+  body {
+    padding-top: 6px;
+
+    header {
+      width: 100%;
+      height: 50px;
+      border-bottom: 1px solid color.$neutral500;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      a {
+        font-family: font.$mono;
+        color: color.$neutral600;
+        margin: 0 20px;
+        text-decoration: underline;
+        text-decoration-color: transparent;
+        text-underline-offset: 3px;
+        transition: color 0.125s;
+        display: flex;
+        justify-content: center;
+        position: relative;
+
+        &::after {
+          content: "";
+          width: 0;
+          height: 1px;
+          position: absolute;
+          bottom: 0;
+          background-color: color.$neutral600;
+          transition: 0.125s ease-in;
+        }
+
+        &:hover,
+        &:focus {
+          color: color.$primary600;
+
+          &::after {
+            width: 100%;
+            background-color: color.$primary600;
+            transition: 0.125s ease-in-out;
+          }
+        }
+      }
+    }
+
+    article {
+      width: 60%;
+      max-width: 2000px;
+      margin: 0 auto;
+      padding: 100px 0;
+
+      img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px 2px hsla(0, 0%, 0%, 25%);
+      }
+
+      .details {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin: 20px 0;
+        font-family: font.$mono;
+
+        h1 {
+          font-size: 32px;
+          color: color.$neutral700;
+          font-family: font.$serifBold;
+        }
+
+        div {
+          color: color.$neutral600;
+
+          svg {
+            position: relative;
+            top: 2px;
+          }
+
+          span:nth-child(2) {
+            margin: 0 5px;
+            user-select: none;
+          }
+        }
+      }
+
+      p {
+        width: fit-content;
+        max-width: 100%;
+        height: auto;
+        color: color.$neutral600;
+        font-style: italic;
+        cursor: text;
+      }
+    }
+  }
+</style>
