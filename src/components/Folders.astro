@@ -148,21 +148,30 @@ interface Folder {
   ) as NodeListOf<HTMLInputElement>;
   const title = document.querySelector("#title") as HTMLElement;
   const images = document.querySelectorAll(".image") as NodeListOf<HTMLElement>;
+  const searchBox = document.querySelector("#search") as HTMLInputElement;
 
   folders.forEach((folder) => {
     folder.addEventListener("click", () => {
       title.innerHTML = folder.value;
+      
+      searchBox.value = "";
+      searchBox.style.width = "0";
+      searchBox.style.marginLeft = "0";
+      searchBox.setAttribute("tabindex", "-1");
 
       images.forEach((image) => {
         image.style.display = "none";
+        image.setAttribute("data-visible", "false");
 
         if (
           image.getAttribute("data-folder") ===
           folder.getAttribute("data-folder")
         ) {
           image.style.display = "block";
+          image.setAttribute("data-visible", "true");
         } else if (folder.getAttribute("data-folder") === "all") {
           image.style.display = "block";
+          image.setAttribute("data-visible", "true");
         }
       });
     });

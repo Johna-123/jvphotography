@@ -88,6 +88,8 @@ interface Image {
               href={`/photo/${image.slug}`}
               class="image"
               data-folder={image.folder}
+              data-tags={image.tags}
+              data-visible="true"
             >
               <div class="outer">
                 <img
@@ -261,7 +263,7 @@ interface Image {
 
 <script>
   const searchButton = document.querySelector("#search-button") as HTMLElement;
-  const searchBox = document.querySelector("#search") as HTMLElement;
+  const searchBox = document.querySelector("#search") as HTMLInputElement;
 
   searchButton.addEventListener("click", () => {
     searchBox.focus();
@@ -276,5 +278,50 @@ interface Image {
       searchBox.style.marginLeft = "0";
       searchBox.setAttribute("tabindex", "-1");
     }
+  });
+
+  searchBox.addEventListener("input", () => {
+    const images = document.querySelectorAll(
+      ".image[data-visible=true]"
+    ) as NodeListOf<HTMLElement>;
+
+    images.forEach((image) => {
+      const tags = (image.getAttribute("data-tags") as string)
+        .toLowerCase()
+        .replaceAll("'", "")
+        .split(",") as Array<string>;
+      const search = (searchBox as HTMLInputElement).value
+        .toLowerCase()
+        .replaceAll("'", "")
+        .split(" ") as Array<string>;
+
+      const values = new Array();
+
+      for (let index = 0; index < search.length; index++) {
+        const word = search[index];
+        const tagStatus = new Array();
+        for (let index = 0; index < tags.length; index++) {
+          const tag = tags[index];
+          if (tag.includes(word)) {
+            tagStatus.push(true);
+          } else {
+            tagStatus.push(false);
+          }
+        }
+        if (tagStatus.includes(true)) {
+          values.push(true);
+        } else {
+          values.push(false);
+        }
+      }
+
+      if (values.length > 0 && values.every((value) => value === true)) {
+        image.style.display = "block";
+      } else if (search.length === 0) {
+        image.style.display = "block";
+      } else {
+        image.style.display = "none";
+      }
+    });
   });
 </script>
