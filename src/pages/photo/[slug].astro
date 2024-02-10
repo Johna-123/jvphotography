@@ -1,4 +1,6 @@
 ---
+import Image from "../../components/Image.astro";
+
 export async function getStaticPaths() {
   const { results: images } = await fetch(
     "https://jvphotography.pages.dev/api/gallery/images"
@@ -84,13 +86,6 @@ const image: Image = await fetch(
     <meta property="og:type" content="article" />
   </head>
   <body>
-    <img src={`https://jvphotography.pages.dev/assets/images/collection/${image.id}.jpg`} alt={image.name} />
+    <Image imageId={image} />
   </body>
 </html>
-
-<style lang="scss">
-  @use "../../styles/base.css";
-  @use "../../styles/scrollbar.css";
-  @use "../../styles/font.css";
-  @use "../../styles/color.css";
-</style>

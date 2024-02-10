@@ -1,0 +1,30 @@
+---
+interface Image {
+  id: string;
+  slug: string;
+  name: string;
+  description: string;
+  tags: string;
+  date: string;
+  location: string;
+  thumbnail: string;
+  image: string;
+  folder: string;
+}
+
+const { imageId } = Astro.props;
+const { id, slug, name, description, tags, date, location, thumbnail, image, folder } = imageId as Image;
+---
+
+<img src={`https://jvphotography.pages.dev/assets/images/collection/${id}.jpg`} alt={name} />
+
+<style lang="scss">
+  @use "../styles/base.css";
+  @use "../styles/scrollbar.css";
+  @use "../styles/font.css";
+  @use "../styles/color.css";
+
+  img {
+    width: 80%;
+  }
+</style>
