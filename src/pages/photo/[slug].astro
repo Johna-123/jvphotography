@@ -44,22 +44,53 @@ const image: Image = await fetch(
   .catch((error) => console.log(error));
 ---
 
-<span>{image.id}</span>
-<br />
-<span>{image.slug}</span>
-<br />
-<span>{image.name}</span>
-<br />
-<span>{image.description}</span>
-<br />
-<span>{image.tags}</span>
-<br />
-<span>{image.date}</span>
-<br />
-<span>{image.location}</span>
-<br />
-<span>{image.thumbnail}</span>
-<br />
-<span>{image.image}</span>
-<br />
-<span>{image.folder}</span>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="robots" content="index, follow" />
+    <link
+      rel="preload"
+      href="/assets/fonts/JosefinSlab-Regular.ttf"
+      as="font"
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/JosefinSlab-SemiBold.ttf"
+      as="font"
+    />
+    <link rel="preload" href="/assets/fonts/Inter-Regular.ttf" as="font" />
+    <link
+      rel="preload"
+      href="/assets/fonts/OverpassMono-Regular.ttf"
+      as="font"
+    />
+    <title>{image.name} • JVPhotography</title>
+    <meta name="author" content="Johnathan Verstraaten" />
+    <meta name="description" content={image.description} />
+    <meta property="og:title" content={`${image.name} • JVPhotography`} />
+    <meta
+      property="og:url"
+      content={`https://jvphotography.pages.dev/photo/${image.slug}`}
+    />
+    <meta
+      property="og:image"
+      content={`https://jvphotography.pages.dev/assets/images/collection/${image.id}.jpg`}
+    />
+    <meta property="og:type" content="article" />
+  </head>
+  <body>
+    <img src={`https://jvphotography.pages.dev/assets/images/collection/${image.id}.jpg`} alt={image.name} />
+  </body>
+</html>
+
+<style lang="scss">
+  @use "../../styles/base.css";
+  @use "../../styles/scrollbar.css";
+  @use "../../styles/font.css";
+  @use "../../styles/color.css";
+</style>
