@@ -15,22 +15,19 @@ export async function getStaticPaths() {
   }
 
   return images.map((image: Image) => {
-    return {params: {slug: image.slug}};
+    return {
+      params: { slug: image.slug },
+      props: { id: image.id },
+    };
   });
 }
 
-const { slug } = Astro.params;
-
-const image =  await fetch(
-  "https://jvphotography.pages.dev/api/gallery/image"
-)
-  .then((res) => res.json())
-  .catch((error) => console.log(error));
+const { id } = Astro.props;
 
 interface Image {
   id: string;
-  name: string;
   slug: string;
+  name: string;
   description: string;
   tags: string;
   date: string;
@@ -40,5 +37,34 @@ interface Image {
   folder: string;
 }
 
-console.log(image as Image);
+const image: Image = await fetch("https://jvphotography.pages.dev/api/gallery/image", {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    id: id,
+  }),
+})
+  .then((res) => res.json())
+  .catch((error) => console.log(error));
 ---
+<span>{image.id}</span>
+<br />
+<span>{image.slug}</span>
+<br />
+<span>{image.name}</span>
+<br />
+<span>{image.description}</span>
+<br />
+<span>{image.tags}</span>
+<br />
+<span>{image.date}</span>
+<br />
+<span>{image.location}</span>
+<br />
+<span>{image.thumbnail}</span>
+<br />
+<span>{image.image}</span>
+<br />
+<span>{image.folder}</span>
