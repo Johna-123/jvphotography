@@ -68,11 +68,6 @@ function date() {
       href="/assets/fonts/JosefinSlab-Regular.ttf"
       as="font"
     />
-    <link
-      rel="preload"
-      href="/assets/fonts/JosefinSlab-SemiBold.ttf"
-      as="font"
-    />
     <link rel="preload" href="/assets/fonts/Inter-Regular.ttf" as="font" />
     <link
       rel="preload"
@@ -103,6 +98,7 @@ function date() {
         src={`/assets/images/collection/${image.id}.jpg`}
         alt={image.name}
         draggable="false"
+        loading="lazy"
       />
       <div class="details">
         <h1>{image.name}</h1>
