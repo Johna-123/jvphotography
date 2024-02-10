@@ -168,7 +168,7 @@ interface Folder {
     setTimeout(() => submit.removeAttribute("style"), 500);
   });
 
-  submit.addEventListener("click", (e) => {
+  submit.addEventListener("click", () => {
     const password = document.querySelector("#password") as HTMLInputElement;
     const key = document.querySelector("#key") as HTMLInputElement;
     const name = document.querySelector("#name") as HTMLInputElement;
