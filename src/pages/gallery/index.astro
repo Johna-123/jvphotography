@@ -360,13 +360,13 @@ interface Image {
     overlay.style.opacity = "0.5";
     overlay.style.zIndex = "5";
     nav.style.left = "0";
-  }
+  };
 
   const menuClose = () => {
     overlay.style.opacity = "0";
-    setTimeout(() => overlay.style.zIndex = "-1", 250);
+    setTimeout(() => (overlay.style.zIndex = "-1"), 250);
     nav.removeAttribute("style");
-  }
+  };
 
   menuButton.addEventListener("click", menuOpen);
 
@@ -381,8 +381,6 @@ interface Image {
   searchButton.addEventListener("click", () => {
     const windowWidth = window.innerWidth;
 
-    searchBox.focus();
-
     if (windowWidth <= 768) {
       headerElements.forEach((element) => (element.style.display = "none"));
       searchBox.style.width = "calc(100vw - 94px)";
@@ -390,6 +388,7 @@ interface Image {
       searchBox.style.width = "200px";
     }
 
+    searchBox.focus();
     searchBox.style.marginLeft = "10px";
     searchBox.setAttribute("tabindex", "0");
   });
@@ -397,7 +396,7 @@ interface Image {
   searchBox.addEventListener("blur", () => {
     if ((searchBox as HTMLInputElement).value === "") {
       setTimeout(() => {
-        headerElements.forEach((element) => (element.removeAttribute("style")));
+        headerElements.forEach((element) => element.removeAttribute("style"));
       }, 250);
       searchBox.style.width = "0";
       searchBox.style.marginLeft = "0";
