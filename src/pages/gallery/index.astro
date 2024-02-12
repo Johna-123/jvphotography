@@ -55,8 +55,8 @@ interface Image {
   <body>
     <Folders />
     <main>
+      <div class="overlay"></div>
       <header>
-        <h1 id="title">All Photos</h1>
         <div class="search">
           <button id="search-button">
             <svg
@@ -80,6 +80,21 @@ interface Image {
             tabindex="-1"
           />
         </div>
+        <h1 id="title">All Photos</h1>
+        <button id="menu-button">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M4 6.5H20M20 18.5H4M4 12.5H20"
+              stroke="#5B5B5B"
+              stroke-linecap="round"></path>
+          </svg>
+        </button>
       </header>
       <div class="content">
         {
@@ -119,10 +134,39 @@ interface Image {
   body {
     padding: 6px 0 0 300px;
 
+    @media screen and (max-width: 1024px) {
+      padding: 6px 0 0 250px;
+
+      @media screen and (max-width: 768px) {
+        padding: 6px 0 0 0;
+      }
+    }
+
     main {
       width: 100%;
       height: auto;
       padding: 140px 30px 100px;
+
+      @media screen and (max-height: 640px) {
+        padding: 100px 30px 70px;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: color.$neutral950;
+        opacity: 0;
+        transition: opacity 0.25s;
+        z-index: -1;
+
+        @media screen and (min-width: 769px) {
+          opacity: 0 !important;
+          z-index: -1 !important;
+        }
+      }
 
       header {
         height: 100px;
@@ -134,8 +178,22 @@ interface Image {
         background-color: white;
         box-shadow: 0 4px 10px 3px white;
         display: flex;
+        flex-direction: row-reverse;
         justify-content: space-between;
         align-items: center;
+
+        @media screen and (max-width: 1024px) {
+          left: 250px;
+
+          @media screen and (max-width: 768px) {
+            left: 0;
+          }
+        }
+
+        @media screen and (max-height: 640px) {
+          height: 70px;
+          padding: 20px 30px 0;
+        }
 
         &::after {
           content: "";
@@ -146,6 +204,16 @@ interface Image {
           right: 30px;
           height: 1px;
           background-color: color.$neutral400;
+        }
+
+        #menu-button {
+          width: 24px;
+          height: 24px;
+          display: none;
+
+          @media screen and (max-width: 768px) {
+            display: block;
+          }
         }
 
         h1 {
@@ -182,38 +250,38 @@ interface Image {
         height: fit-content;
         display: grid;
         gap: 40px;
-        grid-template-columns: repeat(1, minmax(0, 1fr));
+        grid-template-columns: repeat(8, minmax(0, 1fr));
 
-        @media (min-width: 450px) {
-          grid-template-columns: repeat(1, minmax(0, 1fr));
-        }
-
-        @media (min-width: 768px) {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        @media (min-width: 1024px) {
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
-
-        @media (min-width: 1280px) {
-          grid-template-columns: repeat(4, minmax(0, 1fr));
-        }
-
-        @media (min-width: 1536px) {
-          grid-template-columns: repeat(5, minmax(0, 1fr));
-        }
-
-        @media (min-width: 2000px) {
-          grid-template-columns: repeat(6, minmax(0, 1fr));
-        }
-
-        @media (min-width: 2512px) {
+        @media screen and (max-width: 3000px) {
           grid-template-columns: repeat(7, minmax(0, 1fr));
         }
 
-        @media (min-width: 3000px) {
-          grid-template-columns: repeat(8, minmax(0, 1fr));
+        @media screen and (max-width: 2512px) {
+          grid-template-columns: repeat(6, minmax(0, 1fr));
+        }
+
+        @media screen and (max-width: 2000px) {
+          grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+
+        @media screen and (max-width: 1536px) {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        @media screen and (max-width: 1280px) {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        @media screen and (max-width: 920px) {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        @media screen and (max-width: 620px) {
+          gap: 20px;
+        }
+
+        @media screen and (max-width: 450px) {
+          grid-template-columns: repeat(1, minmax(0, 1fr));
         }
 
         .image {
@@ -274,18 +342,62 @@ interface Image {
 </style>
 
 <script>
+  const menuButton = document.querySelector("#menu-button") as HTMLElement;
+  const menuCloseButton = document.querySelector("#close-menu") as HTMLElement;
+  const overlay = document.querySelector(".overlay") as HTMLElement;
+  const nav = document.querySelector("nav") as HTMLElement;
+  const folders = document.querySelectorAll(
+    "input[name=folder]"
+  ) as NodeListOf<HTMLInputElement>;
   const searchButton = document.querySelector("#search-button") as HTMLElement;
   const searchBox = document.querySelector("#search") as HTMLInputElement;
+  const headerElements = document.querySelectorAll(
+    "header > *:not(.search)"
+  ) as NodeListOf<HTMLElement>;
+
+  const menuOpen = () => {
+    overlay.style.opacity = "0.5";
+    overlay.style.zIndex = "5";
+    nav.style.left = "0";
+  }
+
+  const menuClose = () => {
+    overlay.style.opacity = "0";
+    setTimeout(() => overlay.style.zIndex = "-1", 250);
+    nav.removeAttribute("style");
+  }
+
+  menuButton.addEventListener("click", menuOpen);
+
+  overlay.addEventListener("click", menuClose);
+  menuCloseButton.addEventListener("click", menuClose);
+  folders.forEach((folder) => {
+    folder.addEventListener("click", () => {
+      if (window.innerWidth <= 768) menuClose();
+    });
+  });
 
   searchButton.addEventListener("click", () => {
+    const windowWidth = window.innerWidth;
+
     searchBox.focus();
-    searchBox.style.width = "200px";
+
+    if (windowWidth <= 768) {
+      headerElements.forEach((element) => (element.style.display = "none"));
+      searchBox.style.width = "calc(100vw - 94px)";
+    } else {
+      searchBox.style.width = "200px";
+    }
+
     searchBox.style.marginLeft = "10px";
     searchBox.setAttribute("tabindex", "0");
   });
 
   searchBox.addEventListener("blur", () => {
     if ((searchBox as HTMLInputElement).value === "") {
+      setTimeout(() => {
+        headerElements.forEach((element) => (element.removeAttribute("style")));
+      }, 250);
       searchBox.style.width = "0";
       searchBox.style.marginLeft = "0";
       searchBox.setAttribute("tabindex", "-1");

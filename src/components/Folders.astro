@@ -13,6 +13,11 @@ interface Folder {
 ---
 
 <nav>
+  <button id="close-menu">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 20L4 4M20 4L4 20" stroke="#5B5B5B" stroke-linecap="round"/>
+    </svg>      
+  </button>
   <a href="/">
     <svg
       width="64"
@@ -70,13 +75,44 @@ interface Folder {
     padding: 0 30px;
     background-color: color.$neutral100;
     border-right: 1px solid color.$neutral400;
+    transition: left 0.25s;
     z-index: 10;
+    
+    @media screen and (max-width: 1024px) {
+      width: 250px;
+      
+      @media screen and (max-width: 768px) {
+        left: -250px;
 
-    svg {
-      width: 64px;
-      height: 64px;
-      display: block;
-      margin: 40px auto 40px;
+        @media screen and (max-width: 360px) {
+          width: 100%;
+          left: -100%;
+        }
+      }
+    }
+
+    #close-menu {
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: none;
+
+      @media screen and (max-width: 768px) {
+        display: block;
+      }
+    }
+
+    a {
+      display: contents;
+      
+      svg {
+        width: 64px;
+        height: 64px;
+        display: block;
+        margin: 40px auto 40px;
+      }
     }
 
     ul {
