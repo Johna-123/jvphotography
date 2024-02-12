@@ -419,11 +419,11 @@ interface Image {
         .replaceAll("'", "")
         .split(" ") as Array<string>;
 
-      const values = new Array();
+      const values = new Array() as Array<boolean>;
 
       for (let index = 0; index < search.length; index++) {
         const word = search[index];
-        const tagStatus = new Array();
+        const tagStatus = new Array() as Array<boolean>;
         for (let index = 0; index < tags.length; index++) {
           const tag = tags[index];
           if (tag.includes(word)) {
