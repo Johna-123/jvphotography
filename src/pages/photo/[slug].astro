@@ -43,20 +43,21 @@ const image: Image = await fetch(
   .then((res) => res.json())
   .catch((error) => console.log(error));
 
-function date() {
-  const dateString = new Date(image.date);
-  const date = dateString.getDate().toString();
-  const day =
-    date +
-    (Number(date[date.length - 1]) === 1
+function date(): string {
+  const dateString: Date = new Date(image.date);
+  const date: number = dateString.getDate();
+  const day: string =
+    date.toString() +
+    (date === 1 || date === 21 || date === 31
       ? "st"
-      : Number(date[date.length - 1]) === 2
+      : date === 2 || date === 22
         ? "nd"
-        : Number(date[date.length - 1]) === 3
+        : date === 3 || date === 23
           ? "rd"
           : "th");
-  const month = dateString.toLocaleString("default", { month: "long" });
-  const year = dateString.getFullYear();
+  const month: string = dateString.toLocaleString("default", { month: "long" });
+  const year: string = dateString.getFullYear().toString();
+
   return `${day} ${month} ${year}`;
 }
 ---
