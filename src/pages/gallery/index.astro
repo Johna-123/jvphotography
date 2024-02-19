@@ -411,7 +411,7 @@ interface Image {
     ) as NodeListOf<HTMLElement>;
 
     images.forEach((image) => {
-      const tags = (image.getAttribute("data-tags") as string)
+      const tags = (image.dataset.tags as string)
         .toLowerCase()
         .replaceAll("'", "")
         .split(",") as Array<string>;

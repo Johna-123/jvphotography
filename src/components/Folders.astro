@@ -14,9 +14,16 @@ interface Folder {
 
 <nav>
   <button id="close-menu">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 20L4 4M20 4L4 20" stroke="#5B5B5B" stroke-linecap="round"/>
-    </svg>      
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M20 20L4 4M20 4L4 20" stroke="#5B5B5B" stroke-linecap="round"
+      ></path>
+    </svg>
   </button>
   <a href="/">
     <svg
@@ -77,10 +84,10 @@ interface Folder {
     border-right: 1px solid color.$neutral400;
     transition: left 0.25s;
     z-index: 10;
-    
+
     @media screen and (max-width: 1024px) {
       width: 250px;
-      
+
       @media screen and (max-width: 768px) {
         left: -250px;
 
@@ -109,7 +116,7 @@ interface Folder {
       width: min-content;
       height: min-content;
       margin: 40px auto;
-      
+
       svg {
         width: 64px;
         height: 64px;
@@ -191,7 +198,7 @@ interface Folder {
   folders.forEach((folder) => {
     folder.addEventListener("click", () => {
       title.innerHTML = folder.value;
-      
+
       searchBox.value = "";
       searchBox.style.width = "0";
       searchBox.style.marginLeft = "0";
@@ -199,17 +206,14 @@ interface Folder {
 
       images.forEach((image) => {
         image.style.display = "none";
-        image.setAttribute("data-visible", "false");
+        image.dataset.visible = "false";
 
-        if (
-          image.getAttribute("data-folder") ===
-          folder.getAttribute("data-folder")
-        ) {
+        if (image.dataset.folder === folder.dataset.folder) {
           image.style.display = "block";
-          image.setAttribute("data-visible", "true");
-        } else if (folder.getAttribute("data-folder") === "all") {
+          image.dataset.visible = "true";
+        } else if (folder.dataset.folder === "all") {
           image.style.display = "block";
-          image.setAttribute("data-visible", "true");
+          image.dataset.visible = "true";
         }
       });
     });
