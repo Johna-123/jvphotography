@@ -17,6 +17,17 @@ export async function onRequestPost(context) {
       await octokit.request("PUT /repos/{owner}/{repo}/contents/{path}", {
         owner: "johna-123",
         repo: "jvphotography",
+        path: `public/assets/images/collection/thumbnails/${uid}.jpg`,
+        message: `Upload thumbnail for ${data.name}`,
+        content: data.thumbnail,
+        headers: {
+          "X-GitHub-Api-Version": "2022-11-28",
+        },
+      });
+
+      await octokit.request("PUT /repos/{owner}/{repo}/contents/{path}", {
+        owner: "johna-123",
+        repo: "jvphotography",
         path: `src/assets/images/collection/thumbnails/${uid}.jpg`,
         message: `Upload thumbnail for ${data.name}`,
         content: data.thumbnail,
