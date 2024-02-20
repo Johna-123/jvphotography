@@ -22,7 +22,15 @@ export async function getStaticPaths() {
   });
 }
 
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+
 const { id } = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/collection/*.{jpeg,jpg,png,gif}"
+);
+const imagePath = `/src/assets/images/collection/${id}.jpg`;
 
 interface Image {
   id: string;
@@ -103,8 +111,8 @@ function date(): string {
       <a href="/gallery">GALLERY</a>
     </header>
     <article>
-      <img
-        src={`/assets/images/collection/${image.id}.jpg`}
+      <Image
+        src={images[imagePath]()}
         alt={image.name}
         draggable="false"
         loading="lazy"

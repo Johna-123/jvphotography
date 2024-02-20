@@ -1,4 +1,6 @@
 ---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
 import Folders from "../../components/Folders.astro";
 
 const { results: images } = await fetch(
@@ -14,6 +16,10 @@ interface Image {
   tags: string;
   folder: string;
 }
+
+const galleryImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/collection/thumbnails/*.{jpeg,jpg,png,gif}"
+);
 ---
 
 <html lang="en">
@@ -108,8 +114,10 @@ interface Image {
               data-visible="true"
             >
               <div class="outer">
-                <img
-                  src={`/assets/images/collection/thumbnails/${image.id}.jpg`}
+                <Image
+                  src={galleryImages[
+                    `/src/assets/images/collection/thumbnails/${image.id}.jpg`
+                  ]()}
                   alt={image.name}
                   loading="lazy"
                 />

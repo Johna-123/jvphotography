@@ -1,5 +1,10 @@
 ---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
 
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/*.{jpeg,jpg,png,gif}"
+);
 ---
 
 <html lang="en">
@@ -65,50 +70,50 @@
       <h1>Johnathan Verstraaten</h1>
       <span>Nature & Landscape Photographer</span>
       <div class="preview">
-        <img
-          src="/assets/images/1.jpg"
+        <Image
+          src={images[`/src/assets/images/1.jpg`]()}
           alt="Weaver bird"
           draggable="false"
           loading="lazy"
         />
-        <img
-          src="/assets/images/2.jpg"
+        <Image
+          src={images[`/src/assets/images/2.jpg`]()}
           alt="3 birds on the beach at sunset"
           draggable="false"
           loading="lazy"
         />
-        <img
-          src="/assets/images/3.jpg"
+        <Image
+          src={images[`/src/assets/images/3.jpg`]()}
           alt="Sunset"
           draggable="false"
           loading="lazy"
         />
-        <img
-          src="/assets/images/4.jpg"
+        <Image
+          src={images[`/src/assets/images/4.jpg`]()}
           alt="2 pelicans swimming next to each other"
           draggable="false"
           loading="lazy"
         />
-        <img
-          src="/assets/images/5.jpg"
+        <Image
+          src={images[`/src/assets/images/5.jpg`]()}
           alt="A double-spurred spurfowl in a tree"
           draggable="false"
           loading="lazy"
         />
-        <img
-          src="/assets/images/6.jpg"
+        <Image
+          src={images[`/src/assets/images/6.jpg`]()}
           alt="Sunset at St. Pete beach, Florida"
           draggable="false"
           loading="lazy"
         />
-        <img
-          src="/assets/images/7.jpg"
+        <Image
+          src={images[`/src/assets/images/7.jpg`]()}
           alt="Lizard head"
           draggable="false"
           loading="lazy"
         />
-        <img
-          src="/assets/images/8.jpg"
+        <Image
+          src={images[`/src/assets/images/8.jpg`]()}
           alt="Chicken with 2 chicks next to it"
           draggable="false"
           loading="lazy"
@@ -172,8 +177,8 @@
       position: relative;
 
       img {
+        width: 230px;
         height: 230px;
-        aspect-ratio: 1/1;
         object-fit: cover;
         object-position: center;
         flex-shrink: 0;
@@ -318,6 +323,7 @@
         margin: 90px auto 30px;
 
         img {
+          width: 200px;
           height: 200px;
         }
       }
@@ -370,6 +376,7 @@
         margin: 60px auto 20px;
 
         img {
+          width: 180px;
           height: 180px;
           margin: 0 20px;
         }
@@ -405,6 +412,7 @@
         margin: 40px auto 10px;
 
         img {
+          width: 160px;
           height: 160px;
           margin: 0 15px;
 
