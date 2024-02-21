@@ -14,11 +14,26 @@ export async function onRequestPost(context) {
     const uid = crypto.randomUUID();
 
     try {
+      const response = await context.env.JVPHOTOGRAPHY_DB.prepare(
+        `INSERT INTO images VALUES (
+          '${uid}',
+          '${data.slug}',
+          '${data.name}',
+          '${data.description}',
+          '${data.tags}',
+          '${data.date}',
+          '${data.location}',
+          '',
+          '',
+          '${data.folder}'
+        )`
+      ).run();
+
       await octokit.request("PUT /repos/{owner}/{repo}/contents/{path}", {
         owner: "johna-123",
         repo: "jvphotography",
         path: `public/assets/images/collection/thumbnails/${uid}.jpg`,
-        message: `Upload thumbnail for ${data.name}`,
+        message: `Upload preview thumbnail for ${data.name}`,
         content: data.thumbnail,
         headers: {
           "X-GitHub-Api-Version": "2022-11-28",
@@ -47,20 +62,6 @@ export async function onRequestPost(context) {
         },
       });
 
-      const response = await context.env.JVPHOTOGRAPHY_DB.prepare(
-        `INSERT INTO images VALUES (
-          '${uid}',
-          '${data.slug}',
-          '${data.name}',
-          '${data.description}',
-          '${data.tags}',
-          '${data.date}',
-          '${data.location}',
-          '',
-          '',
-          '${data.folder}'
-        )`
-      ).run();
       return new Response(response, { status: 200 });
     } catch (error) {
       return new Response(error, { status: 500 });
