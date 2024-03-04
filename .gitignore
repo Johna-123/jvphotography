@@ -21,3 +21,7 @@ pnpm-debug.log*
 .DS_Store
 
 .wrangler/
+
+# vim files
+*~
+*swp
