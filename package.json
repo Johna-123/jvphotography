@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro check && astro build && wranger pages dev build",
+    "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
@@ -15,7 +15,6 @@
     "@octokit/core": "^5.1.0",
     "astro": "^4.3.5",
     "sass": "^1.70.0",
-    "typescript": "^5.3.3",
-    "wrangler": "^3.60.3"
+    "typescript": "^5.3.3"
   }
 }
