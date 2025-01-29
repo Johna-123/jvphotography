@@ -1,0 +1,22 @@
+---
+
+---
+
+<header class="fixed top-0 left-0 p-6 leading-[0] z-50 group">
+  <nav
+    class="fixed top-0 right-0 bottom-0 left-0 bg-zinc-900 hidden group-open:flex flex-col justify-center items-center text-zinc-100 font-alt text-2xl leading-loose"
+  >
+    <a href="/">HOME</a>
+    <a href="/collections">COLLECTIONS</a>
+    <a href="/gallery">GALLERY</a>
+  </nav>
+  <button id="menu_button" class="relative leading-[0] text-zinc-100">
+    <span class="material-symbols-outlined text-5xl">menu</span>
+  </button>
+</header>
+
+<script>
+  document.querySelector("#menu_button")?.addEventListener("click", () => {
+    document.querySelector("header")?.toggleAttribute("open");
+  });
+</script>
