@@ -4,14 +4,51 @@
 
 <header class="fixed top-0 left-0 p-6 leading-[0] z-50 group">
   <nav
-    class="fixed top-0 right-0 bottom-0 left-0 bg-zinc-900 hidden group-open:flex flex-col justify-center items-center text-zinc-100 font-alt text-2xl leading-loose"
+    class="fixed top-0 right-0 bottom-0 left-0 bg-zinc-900 pointer-events-none group-open:pointer-events-auto flex transition-opacity duration-300 opacity-0 group-open:opacity-100 flex-col justify-center items-center text-zinc-100 font-alt text-2xl leading-[17px]"
   >
-    <a href="/">HOME</a>
-    <a href="/collections">COLLECTIONS</a>
-    <a href="/gallery">GALLERY</a>
+    <div
+      class="relative my-2 -translate-y-4 transition-transform duration-300 group-open:translate-y-0 group/link px-1.5 py-1.5 leading-[17px]"
+    >
+      <div
+        class="absolute top-px -bottom-px left-[51%] right-[51%] group-hover/link:left-0 group-hover/link:right-0 transition-all duration-300 bg-zinc-100"
+      >
+      </div>
+      <a class="mix-blend-difference" href="/">HOME</a>
+    </div>
+    <div
+      class="relative my-2 -translate-y-4 transition-transform duration-300 group-open:translate-y-0 group/link px-1.5 py-1.5 leading-[17px]"
+    >
+      <div
+        class="absolute top-px -bottom-px left-[51%] right-[51%] group-hover/link:left-0 group-hover/link:right-0 transition-all duration-300 bg-zinc-100"
+      >
+      </div>
+      <a class="mix-blend-difference" href="/collections">COLLECTIONS</a>
+    </div>
+    <div
+      class="relative my-2 -translate-y-4 transition-transform duration-300 group-open:translate-y-0 group/link px-1.5 py-1.5 leading-[17px]"
+    >
+      <div
+        class="absolute top-px -bottom-px left-[51%] right-[51%] group-hover/link:left-0 group-hover/link:right-0 transition-all duration-300 bg-zinc-100"
+      >
+      </div>
+      <a class="mix-blend-difference" href="/gallery">GALLERY</a>
+    </div>
   </nav>
   <button id="menu_button" class="relative leading-[0] text-zinc-100">
-    <span class="material-symbols-outlined text-5xl">menu</span>
+    <svg width="48" height="48" viewBox="0, 0, 48, 48">
+      <polyline
+        class="stroke-current stroke-2 origin-center transition-transform duration-300 group-open:scale-0"
+        points="6,12 42,12"></polyline>
+      <polyline
+        class="stroke-current stroke-2 origin-center transition-transform duration-300 group-open:rotate-45 group-open:scale-x-[1.4]"
+        points="6,24 42,24"></polyline>
+      <polyline
+        class="stroke-current stroke-2 origin-center transition-transform duration-300 group-open:-rotate-45 group-open:scale-x-[1.4]"
+        points="6,24 42,24"></polyline>
+      <polyline
+        class="stroke-current stroke-2 origin-center transition-transform duration-300 group-open:scale-0"
+        points="6,36 42,36"></polyline>
+    </svg>
   </button>
 </header>
 
