@@ -13,9 +13,9 @@
     "@astrojs/check": "^0.4.1",
     "@astrojs/sitemap": "^3.0.5",
     "@octokit/core": "^5.1.0",
-    "astro": "^4.16.18",
+    "astro": "^5.7.13",
     "sass": "^1.70.0",
     "typescript": "^5.3.3",
-    "wrangler": "^3.60.3"
+    "wrangler": "^4.15.2"
   }
 }
